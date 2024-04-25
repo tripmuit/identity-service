@@ -1,30 +1,28 @@
-package com.example.demo.enity;
-
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
-
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "roles")
-public class Role implements Serializable {
-    @Id
-    @Column(name  = "name")
-    private String name;
-
-    @Column(name = "description")
-    private String description;
-
-    @ManyToMany
-    private Set<Permission> permissions;
-
-}
+//package com.example.demo.model;
+//
+//import jakarta.persistence.*;
+//import lombok.AllArgsConstructor;
+//import lombok.Getter;
+//import lombok.NoArgsConstructor;
+//import lombok.Setter;
+//
+//import java.util.List;
+//
+//@Setter
+//@Getter
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Entity
+//@Table(name = "roles")
+//public class Role {
+//    @Id
+//    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+//    private Long id;
+//
+//    @Column(name  = "name")
+//    private String name;
+//
+//    @ManyToMany(mappedBy = "roles")
+//    private List<User> users;
+//
+//}
