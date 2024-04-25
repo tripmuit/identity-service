@@ -4,53 +4,50 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name  = "users")
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "users")
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private String id;
+    String id;
 
     @Column(name = "first_name")
     @NotBlank
-    private String firstName;
+    String firstName;
 
     @Column(name = "last_name")
     @NotBlank
-    private String lastName;
+    String lastName;
 
     @Column(name = "email")
     @NotBlank
     @Email
-    private String email;
+    String email;
 
     @Column(name = "password")
     @NotBlank
-    @Size(min = 8, message = "Password must be at least 8 character")
-    private String password;
+    String password;
 
-    @Column(name = "date_created")
-    private Date dateCreated;
+    @Column(name = "dob")
+    LocalDate dob;
 
-//    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-//    @JoinTable(
-//    name="users_roles",
-//    joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
-//    inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
-//    private List<Role> roles = new ArrayList<>();
+    @ManyToMany
+    Set<Role> roles;
+
 }
 
