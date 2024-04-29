@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.request.ApiResponse;
-import com.example.demo.dto.request.AuthenticationRequest;
-import com.example.demo.dto.request.IntrospectRequest;
-import com.example.demo.dto.request.LogoutRequest;
+import com.example.demo.dto.request.*;
 import com.example.demo.dto.response.AuthenticationResponse;
 import com.example.demo.dto.response.IntrospectResponse;
 import com.example.demo.service.AuthenticationService;
@@ -28,18 +25,18 @@ public class AuthenticationController {
     AuthenticationService authenticationService;
 
     @PostMapping("/token")
-    ApiResponse<AuthenticationResponse> authenticate(@ModelAttribute AuthenticationRequest request){
-       var result =  authenticationService.authenticate(request);
-       return ApiResponse.<AuthenticationResponse>builder()
-               .result(result)
-               .build();
+    ApiResponse<AuthenticationResponse> authenticate(@ModelAttribute AuthenticationRequest request) {
+        var result = authenticationService.authenticate(request);
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(result)
+                .build();
 
     }
 
     @PostMapping("/introspect")
     ApiResponse<IntrospectResponse> authenticate(@ModelAttribute IntrospectRequest request)
             throws ParseException, JOSEException {
-        var result =  authenticationService.introspect(request);
+        var result = authenticationService.introspect(request);
         return ApiResponse.<IntrospectResponse>builder()
                 .result(result)
                 .build();
@@ -48,10 +45,20 @@ public class AuthenticationController {
 
     @PostMapping("/logout")
     ApiResponse<Void> logout(@ModelAttribute LogoutRequest request)
-    throws ParseException, JOSEException {
-       authenticationService.logout(request);
+            throws ParseException, JOSEException {
+        authenticationService.logout(request);
         return ApiResponse.<Void>builder()
                 .build();
+    }
+
+    @PostMapping("/refresh")
+    ApiResponse<AuthenticationResponse> refreshToken(@ModelAttribute RefreshRequest request)
+            throws ParseException, JOSEException {
+        var result = authenticationService.refreshToken(request);
+        return ApiResponse.<AuthenticationResponse>builder()
+                .result(result)
+                .build();
+
     }
 
 }
